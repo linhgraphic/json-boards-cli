@@ -1,0 +1,10 @@
+{
+  "invalidProperty": [
+    {
+      "name": "Invalid value",
+      "vendor": "Invalid value",
+      "core": "Invalid value",
+      "has_wifi": false
+    }
+  ]
+}
