@@ -7,7 +7,7 @@
   "type": "module",
   "bin": "./commands.js",
   "scripts": {
-    "start": "node commands.js jbex",
+    "start": "node commands.js export",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "jest": {

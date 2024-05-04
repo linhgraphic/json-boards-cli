@@ -1,39 +1,44 @@
 import fs from "node:fs";
 import path from "path";
 import { validateSchema } from "./utils/validateSchema.js";
-import { validateJsonFileExt } from "./utils/validateJsonFileExt.js";
 import { customJsonParse } from "./utils/customJsonParse.js";
+import { directoryTraversalRecursive } from "./utils/directoryTraversalRecursive.js";
 
 const fsp = fs.promises;
 
-export const jsonBoardExport = async (folderPath) => {
+export const jsonBoardExport = async (directory) => {
   try {
     let data;
     let vendors = new Set();
+    const boardMap = new Map();
+    const validJsonFiles = [];
 
-    const files = (await fsp.readdir(folderPath)).filter((fileName) =>
-      validateJsonFileExt(folderPath, fileName)
-    );
+    const files = directoryTraversalRecursive(directory);
 
-    for (let fileName of files) {
-      const filePath = path.join(folderPath, fileName);
+    for (let filePath of files) {
       const jsonData = await fsp.readFile(filePath, { encoding: "utf8" });
       const content = customJsonParse(jsonData);
       if (!content) continue;
-      if (!validateSchema(content)) {
-        console.warn(`${filePath} has invalid schema`);
-        continue;
-      }
+      if (!validateSchema(content)) continue;
 
-      if (data?.boards) data.boards.push(...content.boards);
-      else data = { boards: [...content.boards] };
-
+      validJsonFiles.push(filePath);
       for (let board of content.boards) {
+        boardMap.set(JSON.stringify(board), board);
         vendors.add(board.vendor);
       }
     }
 
-    data.boards.sort((a, b) => a.name.localeCompare(b.name));
+    for (let value of boardMap.values()) {
+      if (data?.boards) data.boards.push(value);
+      else data = { boards: [value] };
+    }
+
+    data.boards.sort((a, b) => {
+      if (a.vendor.localeCompare(b.vendor) === 0)
+        return a.name.localeCompare(b.name);
+      return a.vendor.localeCompare(b.vendor);
+    });
+
     data._metadata = {
       total_vendors: vendors.size,
       total_boards: data.boards.length,
@@ -46,7 +51,7 @@ export const jsonBoardExport = async (folderPath) => {
       return;
     }
 
-    const outputDir = folderPath + "/output";
+    const outputDir = directory + "/output";
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir);
     }
@@ -55,7 +60,8 @@ export const jsonBoardExport = async (folderPath) => {
     fsp.writeFile(outputFilePath, JSON.stringify(data), {
       encoding: "utf8",
     });
-    console.log("File saved");
+    console.log("Success. The files below exported");
+    validJsonFiles.forEach((file) => console.log(`${file}`));
   } catch (err) {
     console.error(err.message);
     return;
