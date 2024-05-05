@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "path";
 
-export const directoryTraversalRecursive = (directory, files = []) => {
+export const directoryTraversalRecursive = (
+  directory: string,
+  files: string[] = []
+): string[] => {
   try {
     if (directory[directory.length - 1] === "/")
       directory = directory.substring(0, directory.length - 1);
@@ -16,9 +19,8 @@ export const directoryTraversalRecursive = (directory, files = []) => {
         files = directoryTraversalRecursive(filePath, files);
       }
     }
-
     return files;
   } catch (err) {
-    throw new Error("No such file or directory");
+    throw new Error("No such directory");
   }
 };

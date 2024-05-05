@@ -21,6 +21,6 @@ const JsonBoardsSchema = {
   required: ["boards"],
 };
 
-export const validateSchema = (data) => {
+export const validateSchema = (data: object) => {
   return validator.validate(data, JsonBoardsSchema).valid;
 };

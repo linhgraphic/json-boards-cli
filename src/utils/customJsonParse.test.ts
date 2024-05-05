@@ -1,7 +1,9 @@
 import fs from "fs";
 import { customJsonParse } from "./customJsonParse";
 
-const mockValidJson = fs.readFileSync("./mocks/mockValidSchema1.json");
+const mockValidJson = fs.readFileSync(
+  "./src/mocks/mockValidSchema1.json"
+) as unknown as string;
 const mockValidParsedJsonData = {
   boards: [
     {

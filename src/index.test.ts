@@ -1,8 +1,6 @@
 import fs from "node:fs";
 import { jsonBoardExport } from ".";
 
-const fsp = fs.promises;
-
 const outputData = {
   boards: [
     {
@@ -28,11 +26,12 @@ const outputData = {
 };
 
 describe("Calling jsonBoardExport function", () => {
-  it("Should read all json files that have correct json-boards schema in './mocks' directory  and combine the data in to './mocks/output/output.json' file", async () => {
-    await jsonBoardExport("./mocks");
-    const result = await fsp.readFile("./mocks/output/output.json", {
+  it("Should read all json files that have correct json-boards schema in './mocks' directory  and combine the data in to './mocks/output/output.json' file", () => {
+    jsonBoardExport("./src/mocks");
+    const result = fs.readFileSync("./src/mocks/output/output.json", {
       encoding: "utf8",
     });
-    setTimeout(() => expect(JSON.parse(result)).toEqual(outputData), 1000);
+
+    expect(JSON.parse(result)).toEqual(outputData);
   });
 });
