@@ -4,14 +4,11 @@
   "description": "JSON boards CLI",
   "main": "index.js",
   "preferGlobal": true,
-  "type": "module",
-  "bin": "./commands.js",
+  "bin": "./dist/commands.js",
   "scripts": {
-    "start": "node commands.js jbex",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
-  },
-  "jest": {
-    "transform": {}
+    "start": "node ./dist/commands.js export",
+    "build": "npx tsc",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +18,13 @@
     "jsonschema": "^1.4.1"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.8",
+    "@typescript-eslint/parser": "^7.8.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
   }
 }
