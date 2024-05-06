@@ -12,7 +12,6 @@
     "test": "jest"
   },
   "keywords": [
-    "cli",
     "npm-json-export-tool"
   ],
   "author": "Linh Nguyen",
