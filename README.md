@@ -1,10 +1,10 @@
 # Installation
 
-1 - Install `Node.js` if it hasn't been installed
+1 - Install `Node.js`
 
 2 - Install required packages: `npm install`
 
-3 - Run `npm run build` to compile Typescript
+3 - Run `npm run build` to compile
 
 4 - Run `npm link`
 
@@ -20,7 +20,7 @@
 
 1 - `index.js` contains `jsonBoardExport` function which accepts a directory name of type string as an argurment. It reads all .json files in the directory and its subfolder and proceeds to parse, combine, sort, add metadata and write the data to an `output.json` file. The function uses helper functions in utils folder for navigating the target directory and validation tasks.
 
-- Happy path : If all or some of the files in the target directory and its subfolders are valid .json file with correct json-board schema, the function proceeds to create an `output` folder if hasn't existed and writes the data to `<directory>/output/output.json`. The output file is overitten everytime the function is called. Successful execution message is displayed in the end.
+- Happy path : If all or some of the files in the target directory and all of its subfolders are valid .json file with correct json-board schema, the function proceeds to create an `output` folder if hasn't existed and writes the data to `<directory>/output/output.json`. The output file is overitten everytime the function is called. Successful execution message is displayed in the end.
 - Unhappy path: The catch block displays the error message where the function fails. In case there is no .json files or none of the files in the target directory and its subfolder is valid, the function throws an error.
 
 2 - Helper functions: The functions are placed under `utils` folder
