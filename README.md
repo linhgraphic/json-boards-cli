@@ -16,6 +16,10 @@
 
 3 - After running `npm link`, you can run the cli script globally with the command `json-boards-cli export <directory>`
 
+# NPM package
+
+The tool can be downloaded and installed from npm https://www.npmjs.com/package/json-boards-cli
+
 # Implementation details
 
 1 - `index.js` contains `jsonBoardExport` function which accepts a directory name of type string as an argurment. It reads all .json files in the directory and its subfolder and proceeds to parse, combine, sort, add metadata and write the data to an `output.json` file. The function uses helper functions in utils folder for navigating the target directory and validation tasks.
