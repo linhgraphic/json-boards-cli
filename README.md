@@ -23,7 +23,7 @@
 - Happy path : If all or some of the files in the target directory and its subfolders are valid .json file with correct json-board schema, the function proceeds to create an `output` folder if hasn't existed and writes the data to `<directory>/output/output.json`. The output file is overitten everytime the function is called. Successful execution message is displayed in the end.
 - Unhappy path: The catch block displays the error message where the function fails. In case there is no .json files or none of the files in the target directory and its subfolder is valid, the function throws an error.
 
-2 - Utils functions: The functions are placed under `utils` folder
+2 - Helper functions: The functions are placed under `utils` folder
 
 - `directoryTraversalRecursive` returns all .json files from the target directory and its subfolders.
 - `customJsonParse` uses JSON.parse() under the hood, catching error from invalid json data, returning the parsed data for valid json and `null` for invalid json.

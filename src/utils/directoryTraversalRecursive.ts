@@ -6,9 +6,6 @@ export const directoryTraversalRecursive = (
   files: string[] = []
 ): string[] => {
   try {
-    if (directory[directory.length - 1] === "/")
-      directory = directory.substring(0, directory.length - 1);
-
     const currPaths = fs.readdirSync(directory);
     for (let currPath of currPaths) {
       const filePath = path.join(directory, currPath);
